@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "protocol";
+option go_package = "protocol";
+
+option java_outer_classname = "MessageProtos";
+
+import "types.proto";
+import "requests.proto";
+import "events.proto";
+import "updates.proto";
+
+message Message {
+    oneof type {
+        Request request = 1;
+        Event event = 2;
+        Update update = 3;
+    }
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocol";
+option go_package = "protocol";
+
+option java_outer_classname = "EventProtos";
+
+import "types.proto";
+
+message Event {
+
+    oneof type {
+        FailEvent failEvent = 1;
+        DiceRollEvent diceRollEvent = 2;
+
+    }
+
+    message FailEvent {}
+
+
+}
+
+

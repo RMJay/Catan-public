@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+option java_package = "protocol";
+option go_package = "protocol";
+
+option java_outer_classname = "RequestProtos";
+
+import "types.proto";
+
+message Request {
+
+    oneof type {
+        RollDiceRequest rollDiceRequest = 1;
+        BuildRoadRequest buildRoadRequest = 2;
+        BuildSettlementRequest buildSettlementRequest = 3;
+        BuildCityRequest buildCityRequest = 4;
+        BuyDevCardRequest buyDevCardRequest = 5;
+
+        PlayKnightRequest playKnightRequest = 6;
+        PlayMonopolyRequest playMonopolyRequest = 7;
+        PlayYearOfPlentyRequest playYearOfPlentyRequest = 8;
+        PlayRoadBuildingRequest playRoadBuildingRequest = 9;
+        ChooseResourceRequest chooseResourceRequest = 10;
+
+        DiscardRequest discardRequest = 11;
+        MoveRobberRequest moveRobberRequest = 12;
+        StealRequest stealRequest = 13;
+        BankTradeRequest BankTradeRequest = 14;
+        PlayerTradeRequest playerTradeRequest = 15;
+        EndTurnRequest endTurnRequest = 16;
+    }
+
+    /**
+    * Contract: If successful perform dice roll and send a DiceRollEvent to the sender and the other players.
+    */
+    message RollDiceRequest {}
+
+    /**
+    * Contract:
+    */
+    message BuildRoadRequest {
+        required Edge edge = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message BuildSettlementRequest {
+        required Point point = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message BuildCityRequest {
+        required Point point = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message BuyDevCardRequest {}
+
+    /**
+    * Contract:
+    */
+    message PlayKnightRequest {
+
+    }
+    /**
+    * Contract:
+    */
+    message PlayYearOfPlentyRequest {}
+
+    /**
+    * Contract:
+    */
+    message PlayMonopolyRequest {}
+
+    /**
+    * Contract:
+    */
+    message PlayRoadBuildingRequest {}
+
+    /**
+    * Contract:
+    */
+    message ChooseResourceRequest {
+        Resource resource = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message DiscardRequest {
+        ResourceCount resourceCount = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message MoveRobberRequest {
+        Point point = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message StealRequest {
+        PlayerId victim = 1;
+    }
+
+    /**
+    * Contract:
+    */
+    message BankTradeRequest {
+        ResourceCount fromPlayerToBank = 1;
+        ResourceCount fromBankToPlayer = 2;
+    }
+
+    /**
+    * Contract:
+    */
+    message PlayerTradeRequest {
+        ResourceCount fromMetoOther = 2;
+        PlayerId  other = 3;
+        ResourceCount fromOtherToMe = 4;
+    }
+
+    /**
+    * Contract:
+    */
+    message EndTurnRequest {}
+}
+
+

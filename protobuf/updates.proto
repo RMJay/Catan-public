@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+option java_package = "protocol";
+option go_package = "protocol";
+
+option java_outer_classname = "UpdateProtos";
+
+import "types.proto";
+
+message Update {
+
+}

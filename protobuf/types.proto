@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+option java_package = "protocol";
+option go_package = "protocol";
+
+option java_outer_classname = "TypeProtos";
+
+enum PlayerId {
+    PLAYER_1 = 1;
+    PLAYER_2 = 2;
+    PLAYER_3 = 3;
+    PLAYER_4 = 4;
+}
+
+enum Resource {
+    BRICK = 1;
+    LUMBER = 2;
+    WOOL = 3;
+    GRAIN = 4;
+    ORE = 5;
+    GENERIC = 6; // useful within the context of defining a generic harbour
+}
+
+enum Terrain {
+    HILLS = 1;
+    FOREST = 2;
+    PASTURE = 3;
+    MOUNTAINS = 4;
+    FIELDS = 5;
+    DESERT = 6;
+}
+
+enum BuildingType {
+    SETTLEMENT = 1;
+    CITY = 2;
+}
+
+enum DevelopmentCard {
+    KNIGHT = 1;
+    ROAD_BUILDING = 2;
+    MONOPOLY = 3;
+    YEAR_OF_PLENTY = 4;
+    CHAPEL = 5;
+    LIBRARY = 6;
+    MARKET = 7;
+    PALACE = 8;
+    UNIVERSITY = 9;
+}
+
+message Point {
+    required int32 x = 1;
+    required int32 y = 2;
+}
+
+message Edge {
+    required Point p1 = 1;
+    required Point p2 = 2;
+}
+
+message Tile {
+    required Point p = 1;
+    required Terrain terrain = 2;
+    optional int32 diceNumber = 3;
+}
+
+message Road {
+    required Point p1 = 1;
+    required Point p2 = 2;
+    required PlayerId playerId = 3;
+}
+
+message Building {
+    required BuildingType type = 1;
+    required Point p = 2;
+    required PlayerId playerId = 3;
+}
+
+message Harbour {
+    required Point p1 = 1;
+    required Point p2 = 2;
+    optional Resource type = 3;
+}
+
+message BoardState {
+    repeated Tile tiles = 1;
+    repeated Harbour harbours = 2;
+    repeated Road roads = 3;
+    repeated Building buildings = 4;
+    required Point robberPosition = 5;
+}
+
+message DiceRoll {
+    required int32 diceA = 1;
+    required int32 diceB = 2;
+}
+
+message ResourceCount {
+    optional int32 brick = 1;
+    optional int32 lumber = 2;
+    optional int32 wool = 3;
+    optional int32 grain = 4;
+    optional int32 ore = 5;
+}
+
+message Harvest {
+    repeated HarvestEntry entry = 1;
+}
+
+message HarvestEntry {
+    required PlayerId playerId = 1;
+    required Resources resources = 2;
+}
+
+message Trade {
+    oneof Content {
+        PlayerTrade playerTrade = 1;
+        BankTrade bankTrade = 2;
+        HarbourTrade harbourTrade = 3;
+    }
+}
+
+message Theft {
+    required PlayerId theif = 1;
+    required PlayerId victim = 2;
+    required Resources resourcesStolen = 3;
+}
+
+message PlayerTrade {
+    required PlayerId  playerA = 1;
+    required Resources fromAtoB = 2;
+    required PlayerId  playerB = 3;
+    required Resources fromBtoA = 4;
+}
+
+message BankTrade {
+    required PlayerId player = 1;
+    required Resources fromPlayerToBank = 2;
+    required Resources fromBankToPlayer = 3;
+}
+
+message HarbourTrade {
+    required PlayerId player = 1;
+    required Resources fromPlayerToHarbour = 2;
+    required Harbour harbour = 3;
+    required Resources fromHarbourToPlayer = 4;
+}
+
